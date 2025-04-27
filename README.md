@@ -2,7 +2,7 @@
 
 A simple cross-platform desktop application built with **Tauri**, **TailwindCSS**, and **TypeScript**. It loads and displays financial account data from a local JSON file with sortable columns.
 
-## 🧰 Tech Stack
+## 🧰 Tech Stacks
 
 | Layer        | Stack                         |
 | ------------ | ----------------------------- |

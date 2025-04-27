@@ -1,28 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import Accounts from "./pages/Accounts";
-import Transfers from "./pages/Transfers";
-import Transactions from "./pages/Transactions";
-import Settings from "./pages/Settings";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LayoutWithoutSidebar from "./Components/LayoutWithoutSidebar";
+import LayoutWithSidebar from "./Components/LayoutWithSidebar";
+import DatabaseList from "./pages/DatabaseList";
+import DatabasePage from "./pages/DatabasePage";
+import AccountsPage from "./pages/AccountsPage";
+import TransactionsPage from "./pages/TransactionsPage";
+import SettingsPage from "./pages/SettingsPage";
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <div className="flex h-screen bg-gray-100">
-        <Sidebar />
-        <div className="flex-1 p-6 overflow-y-auto">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/accounts" element={<Accounts />} />
-            <Route path="/transfers" element={<Transfers />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        {/* Before selecting database */}
+        <Route element={<LayoutWithoutSidebar />}>
+          <Route index element={<DatabaseList />} />
+        </Route>
+
+        {/* After selecting database */}
+        <Route path="database/:dbName" element={<LayoutWithSidebar />}>
+          <Route index element={<DatabasePage />} />
+          <Route path=":ledgerName/accounts" element={<AccountsPage />} />
+          <Route
+            path=":ledgerName/transactions"
+            element={<TransactionsPage />}
+          />
+          <Route path=":ledgerName/settings" element={<SettingsPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
